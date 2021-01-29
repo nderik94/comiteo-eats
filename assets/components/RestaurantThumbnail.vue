@@ -1,24 +1,26 @@
 <template>
-    <div class="thumbnail p-8">
-        <img
-            :src="restaurant.cover_picture"
-            class="rounded-lg"
-        />
-        <div class="infos-resto w-3/4 mx-auto -mt-10 text-left bg-white relative p-4 rounded-lg shadow-md">
-            <div class="text-3xl font-bold">
-                {{ restaurant.name }}
-            </div>
-            <div class="mb-3 uppercase">
-                {{ restaurant.city }}
-            </div>
-            <div>
-                <span class="rounded-lg bg-blue-600 p-2">{{ restaurant.category }}</span>
-            </div>
-            <div class="rating absolute">
-                <span class="rounded-full bg-gray-300 p-2">{{ restaurant.ratings_average }}</span>
+    <router-link :to="{ name: 'restaurant', params: { restaurantId: restaurant.id }}">
+        <div class="thumbnail p-8">
+            <img
+                :src="restaurant.cover_picture"
+                class="rounded-lg"
+            />
+            <div class="infos-resto w-3/4 mx-auto -mt-10 text-left bg-white relative p-4 rounded-lg shadow-md">
+                <div class="text-3xl font-bold">
+                    {{ restaurant.name }}
+                </div>
+                <div class="mb-3 uppercase">
+                    {{ restaurant.city }}
+                </div>
+                <div>
+                    <span class="rounded-lg bg-blue-600 p-2">{{ restaurant.category }}</span>
+                </div>
+                <div class="rating absolute">
+                    <span class="rounded-full bg-gray-300 p-2">{{ restaurant.ratings_average }}</span>
+                </div>
             </div>
         </div>
-    </div>
+    </router-link>
 </template>
 
 <script>
