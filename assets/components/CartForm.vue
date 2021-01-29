@@ -25,7 +25,7 @@
             <label for="name">Nom</label>
             <input
                 id="name"
-                v-model="last_name"
+                v-model="form.last_name"
                 type="text"
                 name="name"
                 class="border-solid border-4 border-light-blue-500"
@@ -35,7 +35,7 @@
             <label for="name">Prénom</label>
             <input
                 id="firstname"
-                v-model="first_name"
+                v-model="form.first_name"
                 type="text"
                 name="firstname"
                 class="border-solid border-4 border-light-blue-500"
@@ -45,7 +45,7 @@
             <label for="streetAddress">Addresse</label>
             <input
                 id="streetAddress"
-                v-model="delivery_street_address"
+                v-model="form.delivery_street_address"
                 type="text"
                 name="streetAddress"
                 class="border-solid border-4 border-light-blue-500"
@@ -55,7 +55,7 @@
             <label for="zipcode">Code postal</label>
             <input
                 id="zipcode"
-                v-model="delivery_zip_code"
+                v-model="form.delivery_zip_code"
                 type="text"
                 name="zipcode"
                 class="border-solid border-4 border-light-blue-500"
@@ -65,7 +65,7 @@
             <label for="city">Ville</label>
             <input
                 id="city"
-                v-model="delivery_city"
+                v-model="form.delivery_city"
                 type="text"
                 name="city"
                 class="border-solid border-4 border-light-blue-500"
@@ -82,42 +82,55 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     name: 'CartForm',
     data() {
         return {
             errors: [],
-            last_name: null,
-            first_name: null,
-            delivery_street_address: null,
-            delivery_zip_code: null,
-            delivery_city: null,
-
+            form: {
+                last_name: null,
+                first_name: null,
+                delivery_street_address: null,
+                delivery_zip_code: null,
+                delivery_city: null,
+                items: null
+            },
         };
     },
     methods: {
         checkForm(e) {
-            if (this.name && this.firstname) {
+            if (this.form.last_name && this.form.first_name && this.delivery_street_address) {
                 return true;
             }
             this.errors = [];
-            if (!this.name) {
+            if (!this.form.name) {
                 this.errors.push('Nom est requis.');
             }
-            if (!this.firstname) {
+            if (!this.form.firstname) {
                 this.errors.push('Prénom est requis.');
             }
-            if (!this.delivery_street_address) {
+            if (!this.form.delivery_street_address) {
                 this.errors.push('Le nom de rue est requis.');
             }
-            if (!this.delivery_zip_code) {
+            if (!this.form.delivery_zip_code) {
                 this.errors.push('Le code postal est requis.');
             }
-            if (!this.delivery_city) {
+            if (!this.form.delivery_city) {
                 this.errors.push('La ville est requise.');
             }
             e.preventDefault();
             return false;
+        },
+        submitForm() {
+            axios.post('https://comiteo-eats.victormx.com/api/orders', this.form)
+                .then(() => {
+                    console.log('success');
+                })
+                .catch((error) => {
+                    console.error(`error posting data ${error}`);
+                });
         },
     },
 };

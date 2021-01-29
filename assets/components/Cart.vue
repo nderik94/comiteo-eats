@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col p-4 w-2/4 mx-auto">
-        <h2>
+        <h2 class="text-center">
             STATUT DE VOTRE PANIER
         </h2>
         <div
@@ -23,7 +23,7 @@
                 </div>
             </div>
 
-            <div>
+            <div class="text-red-500">
                 Total: {{ totalPrice / 100 }} €
             </div>
             <cart-form />
