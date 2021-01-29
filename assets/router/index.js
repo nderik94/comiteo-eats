@@ -14,6 +14,10 @@ const routes = [
         name: 'restaurant',
         component: () => import('../components/RestaurantDetail.vue'),
     },
+    {
+        path: '/cart',
+        component: () => import('../components/Cart.vue'),
+    },
 ];
 
 const router = new VueRouter({
